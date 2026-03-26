@@ -121,6 +121,8 @@ end)
 -- Enable break indent
 vim.o.breakindent = true
 
+vim.o.termguicolors = true
+
 -- Save undo history
 vim.o.undofile = true
 
@@ -904,9 +906,73 @@ require('lazy').setup({
         },
       }
 
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'lunaperche'
+      local neopywal = require 'neopywal'
+      neopywal.setup {
+        colorscheme_file = '/home/n9neball/.config/wallust/templates/colors_neopywal.vim',
+
+        transparent_background = false,
+
+        custom_highlights = {},
+
+        custom_colors = {},
+
+        dim_inactive = true,
+
+        terminal_colors = false,
+
+        show_end_of_buffer = false,
+
+        show_split_lines = true,
+
+        no_italic = false, -- Force no italic.
+        no_bold = false, -- Force no bold.
+        no_underline = false, -- Force no underline.
+        no_undercurl = false, -- Force no undercurl.
+        no_strikethrough = false, -- Force no strikethrough.
+
+        -- Handles the styling of certain highlight groups (see `:h highlight-args`).
+        styles = {
+          comments = { 'italic' },
+          conditionals = { 'italic' },
+          loops = {},
+          functions = {},
+          keywords = {},
+          includes = { 'italic' },
+          strings = {},
+          variables = { 'italic' },
+          numbers = {},
+          booleans = {},
+          types = { 'italic' },
+          operators = {},
+        },
+
+        -- Setting this to false disables all default file format highlights.
+        -- Useful if you want to enable specific file format options.
+        -- Defaults to false when treesitter is enabled,
+        -- unless manually enabled inside the `setup()` function.
+        default_fileformats = true,
+
+        -- Setting this to false disables all default plugin highlights.
+        -- Useful if you want to enable specific plugin options.
+        default_plugins = true,
+
+        -- For more fileformats options please scroll down (https://github.com/RedsXDD/neopywal.nvim#Fileformats)
+        fileformats = {
+          c_cpp = true,
+          c_sharp = true,
+        },
+
+        -- For more plugin options please scroll down (https://github.com/RedsXDD/neopywal.nvim#Plugins)
+        plugins = {
+          alpha = true,
+          coc = false,
+          mini = {
+            cursorword = true,
+            files = true,
+          },
+        },
+      }
+      vim.cmd.colorscheme 'neopywal'
     end,
   },
 
@@ -950,6 +1016,7 @@ require('lazy').setup({
       --  Check out: https://github.com/echasnovski/mini.nvim
     end,
   },
+
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
@@ -986,8 +1053,9 @@ require('lazy').setup({
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
   -- require 'kickstart.plugins.debug',
+  require 'kickstart.plugins.flutter',
   require 'kickstart.plugins.indent_line',
-  -- require 'kickstart.plugins.lint',
+  require 'kickstart.plugins.lint',
   require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree',
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
@@ -996,7 +1064,7 @@ require('lazy').setup({
   --    This is the easiest way to modularize your config.
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-  -- { import = 'custom.plugins' },
+  { import = 'custom.plugins' },
   --
   -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
   -- Or use telescope!
